@@ -1,5 +1,5 @@
 <template>
-  <div class="apps" @click="editModeActive = false">
+  <div class="apps">
     <header-mobile>Browse æpps</header-mobile>
     <header-desktop>
       <ae-button :to="{ name: 'add-app' }" type="dramatic">

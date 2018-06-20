@@ -3,6 +3,17 @@
     <ae-banner v-if="notification">
       <img v-if="notification.icon" :src="notification.icon" />
       {{notification.text}}
+      <ae-button
+        v-if="notification.action"
+        slot="right"
+        @click="notification.action.handler"
+        plain
+        uppercase
+        type="exciting"
+        size="small"
+      >
+        {{ notification.action.name }}
+      </ae-button>
     </ae-banner>
     <router-view />
     <template v-if="displayQuickId">

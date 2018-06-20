@@ -1,5 +1,5 @@
 import { mapState } from 'vuex'
-import { AeMain, AeBanner } from '@aeternity/aepp-components'
+import { AeMain, AeBanner, AeButton } from '@aeternity/aepp-components'
 import Accounts from '@/pages/Accounts.vue'
 import QuickId from '@/components/QuickId.vue'
 import FooterModal from '@/components/FooterModal.vue'
@@ -17,6 +17,7 @@ export default {
   components: {
     AeMain,
     AeBanner,
+    AeButton,
     QuickId,
     FooterModal,
     AccountsHorizontal,

@@ -25,13 +25,16 @@ export default {
   },
   watch: {
     editModeActive (active) {
-      if (active) {
-        this.$store.dispatch('setNotification', {
-          text: 'You\'re now removing æpps',
-          autoClose: true
-        })
-      }
+      this.setNotification(active)
+    },
+    removeAppIndex (index) {
+      if (!this.editModeActive) return
+      this.setNotification(index === -1)
     }
+  },
+  beforeDestroy () {
+    if (!this.editModeActive) return
+    this.setNotification(false)
   },
   methods: {
     remove () {
@@ -42,6 +45,17 @@ export default {
       if (!this.loggedIn) return
       if (action === 'cancel') return clearTimeout(this.editModeTmOut)
       this.editModeTmOut = setTimeout(() => { this.editModeActive = true }, 1000)
+    },
+    setNotification (visible) {
+      this.$store.commit('setNotification', visible && ({
+        text: 'You\'re now removing æpps',
+        action: {
+          name: 'Cancel',
+          handler: () => {
+            this.editModeActive = false
+          }
+        }
+      }))
     }
   },
   components: {
