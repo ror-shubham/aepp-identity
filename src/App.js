@@ -1,42 +1,19 @@
 import { mapState } from 'vuex'
 import { AeMain, AeBanner } from '@aeternity/aepp-components'
-import Accounts from '@/pages/Accounts.vue'
-import QuickId from '@/components/QuickId.vue'
-import FooterModal from '@/components/FooterModal.vue'
-import AccountsHorizontal from '@/components/AccountsHorizontal.vue'
-import RemoteConnectionPrompt from '@/components/RemoteConnectionPrompt.vue'
-import WaitingForConfirmation from '@/components/WaitingForConfirmation.vue'
-import ApproveMessage from '@/dialogs/ApproveMessage.vue'
-import ApproveTransaction from '@/dialogs/ApproveTransaction.vue'
+import FooterMobile from './components/FooterMobile'
+import FooterDesktop from './components/FooterDesktop'
 import store from './store'
 import PostMessageHandler from './lib/postMessageHandler'
-import IS_MOBILE_DEVICE from './lib/isMobileDevice'
 
 export default {
   name: 'app',
   components: {
     AeMain,
     AeBanner,
-    QuickId,
-    FooterModal,
-    AccountsHorizontal,
-    RemoteConnectionPrompt,
-    WaitingForConfirmation,
-    Accounts,
-    ApproveMessage,
-    ApproveTransaction
+    AppFooter: process.env.IS_MOBILE_DEVICE ? FooterMobile : FooterDesktop
   },
-  data: () => ({
-    IS_MOBILE_DEVICE
-  }),
   computed: {
-    ...mapState(['notification', 'showIdManager']),
-    ...mapState({
-      messageToApprove: ({ mobile }) => mobile.messageToApprove,
-      transactionToApprove: ({ mobile }) => Object.values(mobile.transactionsToApprove)[0],
-      showRemoteConnectionPrompt: ({ desktop }) => desktop.showRemoteConnectionPrompt,
-      transactionIdToSignByRemote: ({ desktop }) => desktop.transactionIdToSignByRemote
-    }),
+    ...mapState(['notification']),
     appClassObject () {
       return {
         stage: process.env.IS_STAGE === true,
@@ -44,20 +21,13 @@ export default {
         'quick-id-hidden': !this.displayQuickId
       }
     },
-    displayQuickId () {
+    displayFooter () {
       const hideQuickIdOn = ['onboarding', 'login', 'recover', 'new-account', 'set-password']
-      if (IS_MOBILE_DEVICE) hideQuickIdOn.push('intro')
+      if (process.env.IS_MOBILE_DEVICE) hideQuickIdOn.push('intro')
       return !hideQuickIdOn.includes(this.$route.name)
     },
     showBackButton () {
       return !['intro', 'apps'].includes(this.$route.name)
-    }
-  },
-  methods: {
-    toggleDesktopFooter () {
-      if (this.transactionIdToSignByRemote) return
-      this.$store.commit(`toggle${this.$store.getters.loggedIn
-        ? 'IdManager' : 'RemoteConnectionPrompt'}`)
     }
   },
   created: function () {

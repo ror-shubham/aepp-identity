@@ -1,5 +1,4 @@
 import Router from 'vue-router'
-import IS_MOBILE_DEVICE from '@/lib/isMobileDevice'
 
 import Intro from '@/pages/Intro.vue'
 import Onboarding from '@/pages/Onboarding/Onboarding.vue'
@@ -18,6 +17,8 @@ import AddApp from '@/pages/AddApp/AddApp.vue'
 import AddressBook from '@/pages/AddressBook.vue'
 import AddressBookNew from '@/pages/AddressBookNew.vue'
 import AddressBookChoose from '@/pages/AddressBookChoose.vue'
+
+const { IS_MOBILE_DEVICE } = process.env
 
 export default (store) => {
   let loginTarget

@@ -1,7 +1,7 @@
 <template>
   <ae-button
     class="fixed-add-button"
-    :class="{ 'quick-id': quickId, mobile: IS_MOBILE_DEVICE }"
+    :class="{ 'quick-id': quickId, mobile: $process.env.IS_MOBILE_DEVICE }"
     :to="to"
     @click="$emit('click')"
     type="dramatic"
@@ -12,16 +12,12 @@
 
 <script>
 import { AeButton, AeIcon } from '@aeternity/aepp-components'
-import IS_MOBILE_DEVICE from '../lib/isMobileDevice'
 
 export default {
   props: {
     to: [Object, String],
     'quick-id': Boolean
   },
-  data: () => ({
-    IS_MOBILE_DEVICE
-  }),
   components: { AeButton, AeIcon }
 }
 </script>

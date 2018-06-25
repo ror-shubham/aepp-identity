@@ -4,7 +4,6 @@ import createPersistedState from 'vuex-persistedstate'
 import uuid from 'uuid/v4'
 import { appsRegistry } from '@/lib/appsRegistry'
 import networksRegistry from '@/lib/networksRegistry'
-import IS_MOBILE_DEVICE from '@/lib/isMobileDevice'
 import desktop from './modules/desktop'
 import mobile from './modules/mobile'
 import pollBalance from './plugins/pollBalance'
@@ -21,7 +20,7 @@ const store = new Vuex.Store({
     createPersistedState({
       paths: [
         'peerKey',
-        ...IS_MOBILE_DEVICE
+        ...process.env.IS_MOBILE_DEVICE
           ? [
             'apps',
             'rpcUrl',
@@ -46,11 +45,11 @@ const store = new Vuex.Store({
     pollBalance,
     initEpoch,
     remoteConnection.plugin,
-    notificationOnRemoteConnection,
-    decryptAccounts
+    ...process.env.IS_MOBILE_DEVICE
+      ? [decryptAccounts, notificationOnRemoteConnection] : []
   ],
 
-  modules: IS_MOBILE_DEVICE ? { mobile } : { desktop },
+  modules: process.env.IS_MOBILE_DEVICE ? { mobile } : { desktop },
 
   state: {
     peerKey: uuid(),

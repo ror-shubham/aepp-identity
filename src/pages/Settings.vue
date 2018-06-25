@@ -8,7 +8,7 @@
       Network
       <span slot="right" class="mute">{{networkName}}</span>
     </item>
-    <template v-if="IS_MOBILE_DEVICE">
+    <template v-if="$process.env.IS_MOBILE_DEVICE">
       <heading>Add-ons</heading>
       <item :to="{ name: 'settings-remote-connection' }">
         <img src="/static/icons/remote-connect.svg" />
@@ -30,7 +30,6 @@ import MobilePage from '@/components/MobilePage.vue'
 import SettingsHeading from '@/components/SettingsHeading'
 import SettingsItem from '@/components/SettingsItem'
 import networks from '@/lib/networksRegistry'
-import IS_MOBILE_DEVICE from '@/lib/isMobileDevice'
 
 export default {
   components: {
@@ -39,7 +38,6 @@ export default {
     Heading: SettingsHeading,
     Item: SettingsItem
   },
-  data: () => ({ IS_MOBILE_DEVICE }),
   computed: mapState({
     networkName: ({ rpcUrl }) => networks.find(n => n.url === rpcUrl).name
   }),

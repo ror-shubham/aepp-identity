@@ -5,29 +5,7 @@
       {{notification.text}}
     </ae-banner>
     <router-view />
-    <template v-if="displayQuickId">
-      <template v-if="IS_MOBILE_DEVICE">
-        <quick-id :show-back-button="showBackButton" />
-        <accounts v-if="showIdManager" />
-      </template>
-      <footer-modal
-        v-else
-        :show-back-button="showBackButton"
-        @toggle="toggleDesktopFooter"
-        :closable="!transactionIdToSignByRemote"
-      >
-        <remote-connection-prompt v-if="showRemoteConnectionPrompt" />
-        <waiting-for-confirmation v-if="transactionIdToSignByRemote" />
-        <accounts-horizontal v-if="showIdManager" />
-      </footer-modal>
-    </template>
-    <div
-      class="modal-dialogs-wrapper"
-      v-if="IS_MOBILE_DEVICE && (messageToApprove || transactionToApprove)"
-    >
-      <approve-message v-if="messageToApprove" v-bind="messageToApprove" />
-      <approve-transaction v-if="transactionToApprove" v-bind="transactionToApprove" />
-    </div>
+    <app-footer v-if="displayFooter" :show-back-button="showBackButton" />
   </ae-main>
 </template>
 

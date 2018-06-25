@@ -1,10 +1,10 @@
 import io from 'socket.io-client'
 import _ from 'lodash'
-import IS_MOBILE_DEVICE from '../../lib/isMobileDevice'
 import RpcPeer from '../../lib/rpc'
 
 const BACKEND_URL = 'https://signaling.aepps.com'
 const PAIR_SYNC_FIELDS = ['apps', 'rpcUrl', 'addresses', 'selectedIdentityIdx', 'addressBook']
+const { IS_MOBILE_DEVICE } = process.env
 
 class RemoteConnection {
   constructor () {

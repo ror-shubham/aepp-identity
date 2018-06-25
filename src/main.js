@@ -45,6 +45,8 @@ if (process.env.NODE_ENV === 'development') {
 
 Vue.config.productionTip = false
 
+Vue.prototype.$process = { env: process.env }
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

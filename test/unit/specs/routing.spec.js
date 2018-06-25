@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import { noop } from 'lodash'
 import createRouter from '../../../src/router'
 
-jest.mock('../../../src/lib/isMobileDevice.js')
 const localVue = createLocalVue()
 localVue.use(Router)
 
